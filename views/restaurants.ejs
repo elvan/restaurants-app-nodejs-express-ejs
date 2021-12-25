@@ -55,6 +55,11 @@
     </aside>
     <main>
       <h1>Recommended restaurants</h1>
+      <% if (restaurants.length === 0) { %>
+      <p>
+        Unfortunately we don't have any recommendations for you at the moment.
+      </p>
+      <% } else { %>
       <p>Find your next favorite restaurants with help of our other users!</p>
       <p>We found <%= restaurants.length %> restaurants.</p>
       <ul id="restaurants-list">
@@ -74,6 +79,7 @@
         </li>
         <% } %>
       </ul>
+      <% } %>
     </main>
   </body>
 </html>
