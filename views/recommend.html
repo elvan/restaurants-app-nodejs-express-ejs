@@ -55,7 +55,7 @@
     </aside>
     <main>
       <h1>Share your favorite restaurant!</h1>
-      <form>
+      <form action="/recommend" method="post">
         <div class="form-control">
           <label for="name">Restaurant name</label>
           <input id="name" name="name" type="text" required />
@@ -76,7 +76,7 @@
         </div>
         <div class="form-control">
           <label for="website">Restaurant website</label>
-          <input id="website" name="website" type="url" />
+          <input id="website" name="website" type="url" required />
         </div>
         <div class="form-control">
           <label for="description">Why do you recommend it?</label>
