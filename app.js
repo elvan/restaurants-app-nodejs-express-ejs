@@ -29,6 +29,7 @@ app.get('/recommend', (req, res) => {
 
 app.post('/recommend', (req, res) => {
   const restaurant = req.body;
+  restaurant.id = Math.round(Math.random() * 1000000000000).toString();
 
   const filePath = path.join(__dirname, 'data', 'restaurants.json');
   const fileData = fs.readFileSync(filePath);
@@ -46,6 +47,17 @@ app.get('/restaurants', (req, res) => {
   const restaurants = JSON.parse(fileData.toString());
 
   res.render('restaurants', { restaurants });
+});
+
+app.get('/restaurants/:id', (req, res) => {
+  const restaurantId = req.params.id;
+  const filePath = path.join(__dirname, 'data', 'restaurants.json');
+  const fileData = fs.readFileSync(filePath);
+  const restaurants = JSON.parse(fileData.toString());
+
+  const restaurant = restaurants.find((r) => r.id === restaurantId);
+
+  res.render('restaurant-detail', { restaurant });
 });
 
 app.listen(3000, () => {

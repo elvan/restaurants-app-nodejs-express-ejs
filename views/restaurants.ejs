@@ -20,7 +20,7 @@
       <ul id="restaurants-list">
         <!-- prettier-ignore -->
         <% for (let restaurant of restaurants) { %>
-          <%- include('includes/restaurants/item.ejs', { restaurant }) %>
+          <%- include('includes/restaurants/restaurant-item.ejs', { restaurant }) %>
         <% } %>
       </ul>
       <% } %>
