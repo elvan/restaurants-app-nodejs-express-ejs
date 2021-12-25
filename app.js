@@ -69,6 +69,11 @@ app.use((req, res) => {
   res.render('404');
 });
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.render('500');
+});
+
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
