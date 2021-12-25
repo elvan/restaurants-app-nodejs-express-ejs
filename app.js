@@ -58,6 +58,10 @@ app.get('/restaurants/:id', (req, res) => {
 
   const restaurant = restaurants.find((r) => r.id === restaurantId);
 
+  if (!restaurant) {
+    res.render('404');
+  }
+
   res.render('restaurant-detail', { restaurant });
 });
 
