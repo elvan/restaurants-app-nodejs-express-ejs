@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const express = require('express');
+const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 
@@ -29,7 +30,7 @@ app.get('/recommend', (req, res) => {
 
 app.post('/recommend', (req, res) => {
   const restaurant = req.body;
-  restaurant.id = Math.round(Math.random() * 1000000000000).toString();
+  restaurant.id = uuidv4();
 
   const filePath = path.join(__dirname, 'data', 'restaurants.json');
   const fileData = fs.readFileSync(filePath);
