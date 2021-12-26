@@ -1,8 +1,9 @@
-const fs = require('fs');
 const path = require('path');
 
 const express = require('express');
 const { v4: uuidv4 } = require('uuid');
+
+const restaurantData = require('./util/restaurant-data');
 
 const app = express();
 
@@ -32,30 +33,23 @@ app.post('/recommend', (req, res) => {
   const restaurant = req.body;
   restaurant.id = uuidv4();
 
-  const filePath = path.join(__dirname, 'data', 'restaurants.json');
-  const fileData = fs.readFileSync(filePath);
-  const restaurants = JSON.parse(fileData.toString());
+  const restaurants = restaurantData.getStoredRestaurants();
 
   restaurants.push(restaurant);
-  fs.writeFileSync(filePath, JSON.stringify(restaurants, null, 2));
+  restaurantData.storeRestaurants(restaurants);
 
   res.redirect('/confirm');
 });
 
 app.get('/restaurants', (req, res) => {
-  const filePath = path.join(__dirname, 'data', 'restaurants.json');
-  const fileData = fs.readFileSync(filePath);
-  const restaurants = JSON.parse(fileData.toString());
+  const restaurants = restaurantData.getStoredRestaurants();
 
   res.render('restaurants', { restaurants });
 });
 
 app.get('/restaurants/:id', (req, res) => {
   const restaurantId = req.params.id;
-  const filePath = path.join(__dirname, 'data', 'restaurants.json');
-  const fileData = fs.readFileSync(filePath);
-  const restaurants = JSON.parse(fileData.toString());
-
+  const restaurants = restaurantData.getStoredRestaurants();
   const restaurant = restaurants.find((r) => r.id === restaurantId);
 
   if (!restaurant) {
