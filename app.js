@@ -59,19 +59,19 @@ app.get('/restaurants/:id', (req, res) => {
   const restaurant = restaurants.find((r) => r.id === restaurantId);
 
   if (!restaurant) {
-    res.render('404');
+    res.status(404).render('404');
   }
 
   res.render('restaurant-detail', { restaurant });
 });
 
 app.use((req, res) => {
-  res.render('404');
+  res.status(404).render('404');
 });
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.render('500');
+  res.status(500).render('500');
 });
 
 app.listen(3000, () => {
